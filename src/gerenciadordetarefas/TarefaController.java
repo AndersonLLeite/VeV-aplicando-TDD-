@@ -27,9 +27,17 @@ public class TarefaController {
         tarefas.add(tarefa);
     }
     public void updateTarefa(String titulo, String descricao, String dataVencimento, int prioridade){
-
+        Tarefa novaTarefa = new Tarefa(titulo, descricao, dataVencimento, prioridade);
+        deleteTarefa(titulo);
+        tarefas.add(novaTarefa);
     }
     public void deleteTarefa(String titulo){
-
+        Tarefa tarefaFound = null;
+        for (Tarefa tarefa: tarefas) {
+            if (tarefa.getTitulo().equals(titulo)){
+                tarefaFound = tarefa;
+            }
+        }
+        tarefas.remove(tarefaFound);
     }
 }
