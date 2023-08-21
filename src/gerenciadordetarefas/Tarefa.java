@@ -1,18 +1,29 @@
 package gerenciadordetarefas;
 
 public class Tarefa {
+    private String titulo;
+    private String descricao;
+    private String dataVencimento;
+    private int prioridade;
+
+    public Tarefa(String titulo, String descricao, String dataVencimento, int prioridade) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.dataVencimento = dataVencimento;
+        this.prioridade = prioridade;
+    }
 
     public String getTitulo() {
-        return "Tarefa1";
+        return this.titulo;
     }
 
     public String getDescricao() {
-        return "Uma tarefa valida";
+        return this.descricao;
     }
     public String getDataVencimento() {
-        return "21/08/2023";
+        return this.dataVencimento;
     }
     public int getPrioridade() {
-        return 3;
+        return this.prioridade;
     }
 }
