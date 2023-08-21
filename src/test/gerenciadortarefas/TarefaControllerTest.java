@@ -1,6 +1,7 @@
 package test.gerenciadortarefas;
 
 import gerenciadordetarefas.Tarefa;
+import gerenciadordetarefas.TarefaController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,11 +17,11 @@ public class TarefaControllerTest {
     public void testGetTarefaVazio(){
         TarefaController tarefaController = new TarefaController();
 
-        assertNull(tarefaController.getTarefa());
+        assertNull(tarefaController.getTarefa("Tarefa"));
     }
     @Test
     public void testAddTarefa(){
-        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", "27/09/2022", 2)
+        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", "27/09/2022", 2);
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(novaTarefa);
 
@@ -28,32 +29,32 @@ public class TarefaControllerTest {
     }
     @Test
     public void testGetNovaTarefa(){
-        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", "27/09/2022", 2)
+        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", "27/09/2022", 2);
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(novaTarefa);
 
-        assertEquals(tarefaController.getTarefa("NovaTarefa"));
+        assertEquals(novaTarefa, tarefaController.getTarefa("NovaTarefa"));
     }
     @Test
     public void testAtualizarTarefa(){
-        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", "27/09/2022", 2)
+        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", "27/09/2022", 2);
         TarefaController tarefaController = new TarefaController();
-        tarefaController.addTarefa(novaTarefa);
+        tarefaController.addTarefa(tarefa);
 
         String novaDescricao = "Uma tarefa atualizada";
 
         tarefaController.updateTarefa(tarefa.getTitulo(), novaDescricao, tarefa.getDataVencimento(), tarefa.getPrioridade());
 
-        assertEquals(tarefaController.getTarefa("Tarefa").getDescricao().equals(novaDescricao));
+        assertEquals(novaDescricao, tarefaController.getTarefa("Tarefa").getDescricao());
     }
     @Test
     public void testDeletarTarefa(){
-        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", "27/09/2022", 2)
+        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", "27/09/2022", 2);
         TarefaController tarefaController = new TarefaController();
-        tarefaController.addTarefa(novaTarefa);
+        tarefaController.addTarefa(tarefa);
 
         tarefaController.deleteTarefa(tarefa.getTitulo());
 
-        assertNull(tarefaController.getTarefa());
+        assertNull(tarefaController.getTarefa("Tarefa"));
     }
 }
