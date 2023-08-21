@@ -15,6 +15,6 @@ class TarefaTest {
 
         Tarefa tarefa = new Tarefa();
 
-        assertTrue(tarefa.getTitulo().equals(titulo) && tarefa.getDescricao().equals(descricao) && tarefa.getDataVencimento().equals(dataVencimento) && tarefa.getPrioridade().equals(prioridade));
+        assertTrue(tarefa.getTitulo().equals(titulo) && tarefa.getDescricao().equals(descricao) && tarefa.getDataVencimento().equals(dataVencimento) && tarefa.getPrioridade() == prioridade);
     }
 }
