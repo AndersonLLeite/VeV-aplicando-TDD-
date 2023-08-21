@@ -1,6 +1,15 @@
 package test.processadorboletos;
 
 import org.junit.Test;
+import processadordeboletos.Boleto;
+import processadordeboletos.Fatura;
+import processadordeboletos.ProcessadorDeBoletos;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class ProcessadorDeBoletosTest {
     @Test
