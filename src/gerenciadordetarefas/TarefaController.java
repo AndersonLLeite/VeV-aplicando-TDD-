@@ -1,43 +1,31 @@
 package gerenciadordetarefas;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TarefaController {
-    private Collection<Tarefa> tarefas;
+    private Map<String, Tarefa> tarefas;
 
     public TarefaController() {
-        this.tarefas = new ArrayList<>();
+        this.tarefas = new HashMap<String, Tarefa>();
     }
 
-    public Collection<Tarefa> getTarefas(){
+    public Map<String, Tarefa> getTarefas(){
         return tarefas;
     }
     public Tarefa getTarefa(String titulo){
-        for (Tarefa tarefa: tarefas) {
-            if (tarefa.getTitulo().equals(titulo)){
-                return  tarefa;
-            }
-        }
-        return null;
+        return  tarefas.get(titulo);
     }
 
     public void addTarefa(Tarefa tarefa){
-        tarefas.add(tarefa);
+        tarefas.put(tarefa.getTitulo(), tarefa);
     }
     public void updateTarefa(String titulo, String descricao, String dataVencimento, int prioridade){
         Tarefa novaTarefa = new Tarefa(titulo, descricao, dataVencimento, prioridade);
-        deleteTarefa(titulo);
-        tarefas.add(novaTarefa);
+        tarefas.put(titulo, novaTarefa);
     }
     public void deleteTarefa(String titulo){
-        Tarefa tarefaFound = null;
-        for (Tarefa tarefa: tarefas) {
-            if (tarefa.getTitulo().equals(titulo)){
-                tarefaFound = tarefa;
-            }
-        }
-        tarefas.remove(tarefaFound);
+        tarefas.remove(titulo);
     }
 }
