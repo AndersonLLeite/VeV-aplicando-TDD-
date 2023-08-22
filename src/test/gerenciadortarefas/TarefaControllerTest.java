@@ -102,4 +102,34 @@ public class TarefaControllerTest {
 
         assertEquals(listaCorreta, tarefaController.listarTarefas());
     }
+    @Test
+    public void testListarTarefasDatasIguais(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("27/08/2023", formatter), 3);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("27/08/2023", formatter), 2);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("27/08/2023", formatter), 1);
+
+        TarefaController tarefaController = new TarefaController();
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+        tarefaController.addTarefa(tarefa3);
+
+        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
+
+        assertEquals(listaCorreta, tarefaController.listarTarefas());
+    }
+    @Test
+    public void testListarTarefasPrioridadesIguais(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), 2);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), 2);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("30/09/2024", formatter), 2);
+
+        TarefaController tarefaController = new TarefaController();
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+        tarefaController.addTarefa(tarefa3);
+
+        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
+
+        assertEquals(listaCorreta, tarefaController.listarTarefas());
+    }
 }
