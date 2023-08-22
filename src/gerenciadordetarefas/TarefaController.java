@@ -22,7 +22,7 @@ public class TarefaController {
     public void addTarefa(Tarefa tarefa){
         tarefas.put(tarefa.getTitulo(), tarefa);
     }
-    public void updateTarefa(String titulo, String descricao, String dataVencimento, int prioridade){
+    public void updateTarefa(String titulo, String descricao, String dataVencimento, Prioridade prioridade){
         Tarefa novaTarefa = new Tarefa(titulo, descricao, LocalDate.parse(dataVencimento, formatter), prioridade);
         tarefas.put(titulo, novaTarefa);
     }
