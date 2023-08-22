@@ -65,7 +65,7 @@ public class TarefaControllerTest {
     public void testListarTarefasVazio(){
         TarefaController tarefaController = new TarefaController();
 
-        assertEquals(0, tarefaController.listarTarefas());
+        assertEquals(0, tarefaController.listarTarefas().size());
     }
     @Test
     public void testListarTarefasUma(){
@@ -73,7 +73,7 @@ public class TarefaControllerTest {
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(tarefa);
 
-        assertEquals(tarefa, tarefaController.listarTarefas().get(1));
+        assertEquals(tarefa, tarefaController.listarTarefas().get(0));
     }
     @Test
     public void testListarTarefasMultiplas(){
