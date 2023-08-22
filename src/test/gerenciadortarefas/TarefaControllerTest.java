@@ -31,6 +31,15 @@ public class TarefaControllerTest {
 
         assertEquals(1, tarefaController.getTarefas().size());
     }
+    @Test void testAddTarefaMultiplas(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", "19/07/2023", 3);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", "21/08/2023", 2);
+        TarefaController tarefaController = new TarefaController();
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+
+        assertEquals(2, tarefaController.getTarefas().size());
+    }
     @Test
     public void testGetNovaTarefa(){
         Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", "27/09/2022", 2);
@@ -78,8 +87,8 @@ public class TarefaControllerTest {
     @Test
     public void testListarTarefasMultiplas(){
         Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", "19/07/2023", 3);
-        Tarefa tarefa2 = new Tarefa("Tarefa1", "Segunda tarefa", "21/08/2023", 2);
-        Tarefa tarefa3 = new Tarefa("Tarefa1", "Terceira tarefa", "30/09/2024", 1);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", "21/08/2023", 2);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", "30/09/2024", 1);
 
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(tarefa1);
