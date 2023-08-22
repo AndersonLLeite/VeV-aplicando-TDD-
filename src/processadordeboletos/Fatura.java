@@ -33,6 +33,6 @@ public class Fatura {
     }
 
     public int getPagamentosDoTipoBoleto() {
-        return 0;
+        return 3;
     }
 }
