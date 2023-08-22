@@ -27,6 +27,8 @@ public class TarefaController {
         tarefas.remove(titulo);
     }
     public List<Tarefa> listarTarefas(){
-        return new ArrayList<>();
+        List<Tarefa> tarefasList =  new ArrayList<>(tarefas.values());
+        Collections.sort(tarefasList);
+        return tarefasList;
     }
 }

@@ -1,6 +1,6 @@
 package gerenciadordetarefas;
 
-public class Tarefa {
+public class Tarefa implements Comparable<Tarefa>{
     private String titulo;
     private String descricao;
     private String dataVencimento;
@@ -25,5 +25,10 @@ public class Tarefa {
     }
     public int getPrioridade() {
         return this.prioridade;
+    }
+
+    @Override
+    public int compareTo(Tarefa outraTarefa) {
+        return outraTarefa.getPrioridade() - this.prioridade;
     }
 }
