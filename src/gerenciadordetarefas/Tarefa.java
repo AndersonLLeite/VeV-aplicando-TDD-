@@ -32,6 +32,10 @@ public class Tarefa implements Comparable<Tarefa>{
 
     @Override
     public int compareTo(Tarefa outraTarefa) {
-        return outraTarefa.getPrioridade() - this.prioridade;
+        int compareVal = dataVencimento.compareTo(outraTarefa.dataVencimento);
+        if (compareVal == 0){
+            compareVal = outraTarefa.prioridade - this.prioridade;
+        }
+        return compareVal;
     }
 }
