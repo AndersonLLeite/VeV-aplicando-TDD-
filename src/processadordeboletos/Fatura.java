@@ -33,6 +33,16 @@ public class Fatura {
     }
 
     public int getPagamentosDoTipoBoleto() {
-        return 3;
+        int pagamentosDoTipoBoleto = 0;
+        for (Pagamento pagamento : pagamentos) {
+            if (pagamento.getTipo().equals("BOLETO")) {
+                pagamentosDoTipoBoleto++;
+            }
+        }
+        return pagamentosDoTipoBoleto;
+    }
+
+    public void adicionarPagamento(Pagamento pagamento) {
+        pagamentos.add(pagamento);
     }
 }

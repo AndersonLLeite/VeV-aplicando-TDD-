@@ -9,6 +9,7 @@ public class ProcessadorDeBoletos {
         for (Boleto boleto : boletos) {
             totalPago += boleto.getValorPago();
             Pagamento pagamento = new Pagamento(boleto.getValorPago(), boleto.getData(), "BOLETO");
+            fatura.adicionarPagamento(pagamento);
         }
         if (totalPago >= fatura.getValorTotal()) {
             fatura.marcarComoPaga();
