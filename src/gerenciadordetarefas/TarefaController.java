@@ -1,9 +1,12 @@
 package gerenciadordetarefas;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class TarefaController {
     private Map<String, Tarefa> tarefas;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public TarefaController() {
         this.tarefas = new HashMap<String, Tarefa>();
@@ -20,7 +23,7 @@ public class TarefaController {
         tarefas.put(tarefa.getTitulo(), tarefa);
     }
     public void updateTarefa(String titulo, String descricao, String dataVencimento, int prioridade){
-        Tarefa novaTarefa = new Tarefa(titulo, descricao, dataVencimento, prioridade);
+        Tarefa novaTarefa = new Tarefa(titulo, descricao, LocalDate.parse(dataVencimento, formatter), prioridade);
         tarefas.put(titulo, novaTarefa);
     }
     public void deleteTarefa(String titulo){
