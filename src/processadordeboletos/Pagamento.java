@@ -12,4 +12,8 @@ public class Pagamento {
         this.data = data;
         this.tipo = tipo;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
 }

@@ -40,4 +40,19 @@ public class ProcessadorDeBoletosTest {
 
         assertFalse(fatura.estaPaga());
     }
+
+    @Test
+    public void testProcessarBoletosResultandoTem3PagamentosDoTipoBoleto() {
+        List<Boleto> boletos = new ArrayList<>();
+        boletos.add(new Boleto("001", new Date(), 500.00));
+        boletos.add(new Boleto("002", new Date(), 100.00));
+        boletos.add(new Boleto("003", new Date(), 600.00));
+
+        Fatura fatura = new Fatura(new Date(), 1500.00, "Cliente Teste");
+
+        ProcessadorDeBoletos.processarBoletos(boletos, fatura);
+
+        assertTrue(fatura.getPagamentosDoTipoBoleto() == 3);
+
+    }
 }
