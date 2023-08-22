@@ -1,5 +1,5 @@
 # VeV-aplicando-TDD-
-Exercício desenvolvido como parte da disciplina de Verificação e Validação de Software, sobre o uso de TDD (Test-Driven Development).
+Exercício desenvolvido como parte da disciplina de Verificação e Validação de Software, sobre o uso e aplicação de Test-Driven Development (TDD). Foram implementados sistemas de Processador de Boletos e Gerenciador de Tarefas, utilizando Java com testes em JUnit.
 ## Processador de Boletos
 Autor: Anderson de Lima Leite
 ## Gerenciador de Tarefas
