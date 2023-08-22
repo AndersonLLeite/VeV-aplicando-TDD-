@@ -1,5 +1,6 @@
 package test.gerenciadortarefas;
 
+import gerenciadordetarefas.Prioridade;
 import gerenciadordetarefas.Tarefa;
 import gerenciadordetarefas.TarefaController;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ public class TarefaControllerTest {
     }
     @Test
     public void testAddTarefa(){
-        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), 2);
+        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(novaTarefa);
 
@@ -35,8 +36,8 @@ public class TarefaControllerTest {
     }
     @Test void testAddTarefaMultiplas(){
 
-        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), 3);
-        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), 2);
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(tarefa1);
         tarefaController.addTarefa(tarefa2);
@@ -45,7 +46,7 @@ public class TarefaControllerTest {
     }
     @Test
     public void testGetNovaTarefa(){
-        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), 2);
+        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(novaTarefa);
 
@@ -53,7 +54,7 @@ public class TarefaControllerTest {
     }
     @Test
     public void testAtualizarTarefa(){
-        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), 2);
+        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(tarefa);
 
@@ -65,7 +66,7 @@ public class TarefaControllerTest {
     }
     @Test
     public void testDeletarTarefa(){
-        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), 2);
+        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(tarefa);
 
@@ -81,7 +82,7 @@ public class TarefaControllerTest {
     }
     @Test
     public void testListarTarefasUma(){
-        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), 2);
+        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(tarefa);
 
@@ -89,9 +90,39 @@ public class TarefaControllerTest {
     }
     @Test
     public void testListarTarefasMultiplas(){
-        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), 3);
-        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), 2);
-        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("30/09/2024", formatter), 1);
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.BAIXA);
+
+        TarefaController tarefaController = new TarefaController();
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+        tarefaController.addTarefa(tarefa3);
+
+        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
+
+        assertEquals(listaCorreta, tarefaController.listarTarefas());
+    }
+    @Test
+    public void testListarTarefasDatasIguais(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.MEDIA);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.BAIXA);
+
+        TarefaController tarefaController = new TarefaController();
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+        tarefaController.addTarefa(tarefa3);
+
+        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
+
+        assertEquals(listaCorreta, tarefaController.listarTarefas());
+    }
+    @Test
+    public void testListarTarefasPrioridadesIguais(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.BAIXA);
 
         TarefaController tarefaController = new TarefaController();
         tarefaController.addTarefa(tarefa1);

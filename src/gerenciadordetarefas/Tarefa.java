@@ -7,9 +7,9 @@ public class Tarefa implements Comparable<Tarefa>{
     private String titulo;
     private String descricao;
     private LocalDate dataVencimento;
-    private int prioridade;
+    private Prioridade prioridade;
 
-    public Tarefa(String titulo, String descricao, LocalDate dataVencimento, int prioridade) {
+    public Tarefa(String titulo, String descricao, LocalDate dataVencimento, Prioridade prioridade) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataVencimento = dataVencimento;
@@ -26,12 +26,16 @@ public class Tarefa implements Comparable<Tarefa>{
     public LocalDate getDataVencimento() {
         return this.dataVencimento;
     }
-    public int getPrioridade() {
+    public Prioridade getPrioridade() {
         return this.prioridade;
     }
 
     @Override
     public int compareTo(Tarefa outraTarefa) {
-        return outraTarefa.getPrioridade() - this.prioridade;
+        int compareVal = dataVencimento.compareTo(outraTarefa.dataVencimento);
+        if (compareVal == 0){
+            compareVal = this.prioridade.compareTo(outraTarefa.prioridade);
+        }
+        return compareVal;
     }
 }

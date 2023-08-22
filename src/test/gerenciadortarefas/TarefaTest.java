@@ -1,5 +1,6 @@
 package test.gerenciadortarefas;
 
+import gerenciadordetarefas.Prioridade;
 import gerenciadordetarefas.Tarefa;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ class TarefaTest {
         String titulo = "Tarefa1";
         String descricao = "Uma tarefa valida";
         LocalDate dataVencimento = LocalDate.parse( "21/08/2023", formatter);
-        int prioridade = 3;
+        Prioridade prioridade = Prioridade.ALTA;
 
         Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento, prioridade);
 
@@ -26,7 +27,7 @@ class TarefaTest {
         String titulo = "Tarefa2";
         String descricao = "Outra tarefa valida";
         LocalDate dataVencimento = LocalDate.parse("30/09/2024", formatter);
-        int prioridade = 2;
+        Prioridade prioridade = Prioridade.MEDIA;
 
         Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento, prioridade);
 
