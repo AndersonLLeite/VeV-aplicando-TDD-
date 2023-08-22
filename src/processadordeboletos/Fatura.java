@@ -15,15 +15,15 @@ public class Fatura {
         this.paga = false;
     }
 
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
     public boolean estaPaga() {
         return paga;
     }
 
     public void marcarComoPaga() {
         paga = true;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
     }
 }

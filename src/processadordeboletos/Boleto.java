@@ -13,7 +13,12 @@ public class Boleto {
         this.valorPago = valorPago;
     }
 
+
     public double getValorPago() {
         return valorPago;
+    }
+
+    public Date getData() {
+        return data;
     }
 }
