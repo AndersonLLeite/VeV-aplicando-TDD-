@@ -1,8 +1,6 @@
 package gerenciadordetarefas;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TarefaController {
     private Map<String, Tarefa> tarefas;
@@ -27,5 +25,8 @@ public class TarefaController {
     }
     public void deleteTarefa(String titulo){
         tarefas.remove(titulo);
+    }
+    public List<Tarefa> listarTarefas(){
+        return new ArrayList<>();
     }
 }
