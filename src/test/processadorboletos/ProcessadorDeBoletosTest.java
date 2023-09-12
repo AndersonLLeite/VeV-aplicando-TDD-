@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ProcessadorDeBoletosTest {
     @Test
@@ -52,7 +51,6 @@ public class ProcessadorDeBoletosTest {
 
         ProcessadorDeBoletos.processarBoletos(boletos, fatura);
 
-        assertTrue(fatura.getPagamentosDoTipoBoleto() == 3);
-
+        assertEquals(3, fatura.getPagamentosDoTipoBoleto());
     }
 }
