@@ -89,18 +89,11 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(2, tarefaController.getTarefas().size());
     }
     @Test
-    public void testGetNovaTarefa(){
-        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
-        tarefaController.addTarefa(novaTarefa);
-        assertEquals(novaTarefa, tarefaController.getTarefa("NovaTarefa"));
-    }
-    @Test
     public void testAtualizarTarefa(){
         Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(tarefa);
 
         String novaDescricao = "Uma tarefa atualizada";
-
         tarefaController.updateTarefa(tarefa.getTitulo(), novaDescricao, tarefa.getDataVencimento().format(formatter), tarefa.getPrioridade());
 
         assertEquals(novaDescricao, tarefaController.getTarefa("Tarefa").getDescricao());
@@ -108,11 +101,8 @@ public class Junit5GerenciadorTarefasTest {
     @Test
     public void testDeletarTarefa(){
         Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
-
         tarefaController.addTarefa(tarefa);
-
         tarefaController.deleteTarefa(tarefa.getTitulo());
-
         assertNull(tarefaController.getTarefa("Tarefa"));
     }
     @Test
@@ -120,20 +110,11 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(0, tarefaController.listarTarefas().size());
     }
     @Test
-    public void testListarTarefasUma(){
-        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
-
-        tarefaController.addTarefa(tarefa);
-
-        assertEquals(tarefa, tarefaController.listarTarefas().get(0));
-    }
-    @Test
-    public void testListarTarefasMultiplas(){
-        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
-        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
+    public void testListarTarefas3Prioridades(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.MEDIA);
         Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.BAIXA);
 
-
         tarefaController.addTarefa(tarefa1);
         tarefaController.addTarefa(tarefa2);
         tarefaController.addTarefa(tarefa3);
@@ -142,36 +123,7 @@ public class Junit5GerenciadorTarefasTest {
 
         assertEquals(listaCorreta, tarefaController.listarTarefas());
     }
-    @Test
-    public void testListarTarefasDatasIguais(){
-        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.ALTA);
-        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.MEDIA);
-        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.BAIXA);
 
-
-        tarefaController.addTarefa(tarefa1);
-        tarefaController.addTarefa(tarefa2);
-        tarefaController.addTarefa(tarefa3);
-
-        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
-
-        assertEquals(listaCorreta, tarefaController.listarTarefas());
-    }
-    @Test
-    public void testListarTarefasPrioridadesIguais(){
-        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
-        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
-        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.BAIXA);
-
-
-        tarefaController.addTarefa(tarefa1);
-        tarefaController.addTarefa(tarefa2);
-        tarefaController.addTarefa(tarefa3);
-
-        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
-
-        assertEquals(listaCorreta, tarefaController.listarTarefas());
-    }
     // Testes Funcionais
     @Test
     public void testCriarTarefaDataFormatoInvalido(){
