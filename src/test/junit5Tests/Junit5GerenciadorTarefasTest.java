@@ -5,6 +5,7 @@ import gerenciadordetarefas.Tarefa;
 import gerenciadordetarefas.TarefaController;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -30,7 +31,147 @@ public class Junit5GerenciadorTarefasTest {
     public void setupController(){
         tarefaController = new TarefaController();
     }
+    // Testes TDD - Tarefa
+    @Test
+    public void testCriarTarefaValida1(){
+        String titulo = "Tarefa1";
+        String descricao = "Uma tarefa valida";
+        LocalDate dataVencimento = LocalDate.parse( "21/08/2023", formatter);
+        Prioridade prioridade = Prioridade.ALTA;
 
+        Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento, prioridade);
+
+        assertAll(
+                () -> assertEquals(titulo, tarefa.getTitulo()),
+                () -> assertEquals(descricao, tarefa.getDescricao()),
+                () -> assertEquals(dataVencimento, tarefa.getDataVencimento()),
+                () -> assertEquals(prioridade, tarefa.getPrioridade())
+        );
+    }
+    @Test
+    public void testCriarTarefaValida2(){
+        String titulo = "Tarefa2";
+        String descricao = "Outra tarefa valida";
+        LocalDate dataVencimento = LocalDate.parse("30/09/2024", formatter);
+        Prioridade prioridade = Prioridade.MEDIA;
+
+        Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento, prioridade);
+
+        assertAll(
+                () -> assertEquals(titulo, tarefa.getTitulo()),
+                () -> assertEquals(descricao, tarefa.getDescricao()),
+                () -> assertEquals(dataVencimento, tarefa.getDataVencimento()),
+                () -> assertEquals(prioridade, tarefa.getPrioridade())
+        );
+    }
+    // Testes TDD - TarefaController
+    @Test
+    public void testGetTarefasCollectionVazio(){
+        assertEquals(0, tarefaController.getTarefas().size());
+    }
+    @Test
+    public void testGetTarefaInexistente(){
+        assertNull(tarefaController.getTarefa("Tarefa"));
+    }
+    @Test
+    public void testAddTarefa(){
+        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
+        tarefaController.addTarefa(novaTarefa);
+        assertEquals(1, tarefaController.getTarefas().size());
+    }
+    @Test void testAddTarefaMultiplas(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
+
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+
+        assertEquals(2, tarefaController.getTarefas().size());
+    }
+    @Test
+    public void testGetNovaTarefa(){
+        Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
+        tarefaController.addTarefa(novaTarefa);
+        assertEquals(novaTarefa, tarefaController.getTarefa("NovaTarefa"));
+    }
+    @Test
+    public void testAtualizarTarefa(){
+        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
+        tarefaController.addTarefa(tarefa);
+
+        String novaDescricao = "Uma tarefa atualizada";
+
+        tarefaController.updateTarefa(tarefa.getTitulo(), novaDescricao, tarefa.getDataVencimento().format(formatter), tarefa.getPrioridade());
+
+        assertEquals(novaDescricao, tarefaController.getTarefa("Tarefa").getDescricao());
+    }
+    @Test
+    public void testDeletarTarefa(){
+        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
+
+        tarefaController.addTarefa(tarefa);
+
+        tarefaController.deleteTarefa(tarefa.getTitulo());
+
+        assertNull(tarefaController.getTarefa("Tarefa"));
+    }
+    @Test
+    public void testListarTarefasVazio(){
+        assertEquals(0, tarefaController.listarTarefas().size());
+    }
+    @Test
+    public void testListarTarefasUma(){
+        Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
+
+        tarefaController.addTarefa(tarefa);
+
+        assertEquals(tarefa, tarefaController.listarTarefas().get(0));
+    }
+    @Test
+    public void testListarTarefasMultiplas(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.BAIXA);
+
+
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+        tarefaController.addTarefa(tarefa3);
+
+        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
+
+        assertEquals(listaCorreta, tarefaController.listarTarefas());
+    }
+    @Test
+    public void testListarTarefasDatasIguais(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.MEDIA);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("27/08/2023", formatter), Prioridade.BAIXA);
+
+
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+        tarefaController.addTarefa(tarefa3);
+
+        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
+
+        assertEquals(listaCorreta, tarefaController.listarTarefas());
+    }
+    @Test
+    public void testListarTarefasPrioridadesIguais(){
+        Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
+        Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
+        Tarefa tarefa3 = new Tarefa("Tarefa3", "Terceira tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.BAIXA);
+
+
+        tarefaController.addTarefa(tarefa1);
+        tarefaController.addTarefa(tarefa2);
+        tarefaController.addTarefa(tarefa3);
+
+        List<Tarefa> listaCorreta = Arrays.asList(tarefa1, tarefa2, tarefa3);
+
+        assertEquals(listaCorreta, tarefaController.listarTarefas());
+    }
     // Testes Funcionais
     @Test
     public void testCriarTarefaDataFormatoInvalido(){
