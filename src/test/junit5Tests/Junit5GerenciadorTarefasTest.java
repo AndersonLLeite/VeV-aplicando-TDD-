@@ -33,6 +33,7 @@ public class Junit5GerenciadorTarefasTest {
     }
     // Testes TDD - Tarefa
     @Test
+    @Tag("TDD")
     public void testCriarTarefaValida1(){
         String titulo = "Tarefa1";
         String descricao = "Uma tarefa valida";
@@ -49,6 +50,7 @@ public class Junit5GerenciadorTarefasTest {
         );
     }
     @Test
+    @Tag("TDD")
     public void testCriarTarefaValida2(){
         String titulo = "Tarefa2";
         String descricao = "Outra tarefa valida";
@@ -66,20 +68,25 @@ public class Junit5GerenciadorTarefasTest {
     }
     // Testes TDD - TarefaController
     @Test
+    @Tag("TDD")
     public void testGetTarefasCollectionVazio(){
         assertEquals(0, tarefaController.getTarefas().size());
     }
     @Test
+    @Tag("TDD")
     public void testGetTarefaInexistente(){
         assertNull(tarefaController.getTarefa("Tarefa"));
     }
     @Test
+    @Tag("TDD")
     public void testAddTarefa(){
         Tarefa novaTarefa = new Tarefa("NovaTarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
         assertEquals(1, tarefaController.getTarefas().size());
     }
-    @Test void testAddTarefaMultiplas(){
+    @Test
+    @Tag("TDD")
+    void testAddTarefaMultiplas(){
         Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("19/07/2023", formatter), Prioridade.ALTA);
         Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("21/08/2023", formatter), Prioridade.MEDIA);
 
@@ -89,6 +96,7 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(2, tarefaController.getTarefas().size());
     }
     @Test
+    @Tag("TDD")
     public void testAtualizarTarefa(){
         Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(tarefa);
@@ -99,6 +107,7 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(novaDescricao, tarefaController.getTarefa("Tarefa").getDescricao());
     }
     @Test
+    @Tag("TDD")
     public void testDeletarTarefa(){
         Tarefa tarefa = new Tarefa("Tarefa", "Uma nova tarefa", LocalDate.parse("27/09/2022", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(tarefa);
@@ -106,10 +115,12 @@ public class Junit5GerenciadorTarefasTest {
         assertNull(tarefaController.getTarefa("Tarefa"));
     }
     @Test
+    @Tag("TDD")
     public void testListarTarefasVazio(){
         assertEquals(0, tarefaController.listarTarefas().size());
     }
     @Test
+    @Tag("TDD")
     public void testListarTarefas3Prioridades(){
         Tarefa tarefa1 = new Tarefa("Tarefa1", "Primeira tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.ALTA);
         Tarefa tarefa2 = new Tarefa("Tarefa2", "Segunda tarefa", LocalDate.parse("30/09/2024", formatter), Prioridade.MEDIA);
@@ -126,6 +137,7 @@ public class Junit5GerenciadorTarefasTest {
 
     // Testes Funcionais
     @Test
+    @Tag("Functional")
     public void testCriarTarefaDataFormatoInvalido(){
         assertThrows(DateTimeParseException.class, () -> {
             Tarefa novaTarefa = new Tarefa("T1", "tarefa 1", LocalDate.parse("20.04.2024", formatter), Prioridade.MEDIA);
@@ -133,12 +145,14 @@ public class Junit5GerenciadorTarefasTest {
         });
     }
     @Test
+    @Tag("Functional")
     public void testCriarTarefaDataInvalida(){
         Tarefa novaTarefa = new Tarefa("T1", "tarefa 1", LocalDate.parse("31/02/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
         assertThrows(IllegalArgumentException.class, () -> tarefaController.getTarefa("T1"));
     }
     @Test
+    @Tag("Functional")
     public void testCriarTarefaDataJaSePassou(){
         Tarefa novaTarefa = new Tarefa("T1", "tarefa 1", LocalDate.parse("02/03/2019", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
@@ -146,6 +160,7 @@ public class Junit5GerenciadorTarefasTest {
         assertThrows(IllegalArgumentException.class, () -> tarefaController.getTarefa("T1"));
     }
     @Test
+    @Tag("Functional")
     public void testCriarTarefaDataValida(){
         Tarefa novaTarefa = new Tarefa("T1", "tarefa 1", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
@@ -153,6 +168,7 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(novaTarefa, tarefaController.getTarefa("T1"));
     }
     @Test
+    @Tag("Functional")
     public void testCriarTarefaTituloVazio(){
         Tarefa novaTarefa = new Tarefa("", "", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
@@ -160,20 +176,23 @@ public class Junit5GerenciadorTarefasTest {
         assertThrows(IllegalArgumentException.class, () -> tarefaController.getTarefa(""));
     }
     @Test
+    @Tag("Functional")
     public void testCriarTarefaTituloCaracterEspecial(){
         Tarefa novaTarefa = new Tarefa("@Ação", "Ações válidas", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
 
         assertEquals(novaTarefa, tarefaController.getTarefa("@Ação"));
-    }    @Test
+    }
+    @Test
+    @Tag("Functional")
     public void testCriarTarefaTituloValidoSimples(){
         Tarefa novaTarefa = new Tarefa("T1", "tarefa 1", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
 
         assertEquals(novaTarefa, tarefaController.getTarefa("T1"));
     }
-
     @Test
+    @Tag("Functional")
     public void testListarTarefa1NaoExiste(){
         Tarefa tarefa2 = new Tarefa("T2", "tarefa 2", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(tarefa2);
@@ -182,6 +201,7 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(expected, tarefaController.listarTarefas());
     }
     @Test
+    @Tag("Functional")
     public void testListarTarefa2NaoExiste(){
         Tarefa tarefa1 = new Tarefa("T1", "tarefa 1", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(tarefa1);
@@ -190,11 +210,13 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(expected, tarefaController.listarTarefas());
     }
     @Test
+    @Tag("Functional")
     public void testListarTarefa1e2NaoExistem(){
         List<Tarefa> expected = new ArrayList<>();
         assertEquals(expected, tarefaController.listarTarefas());
     }
     @Test
+    @Tag("Functional")
     public void testListarData1MaiorPrioridadeIgual(){
         Tarefa tarefa1 = new Tarefa("T1", "tarefa 1", LocalDate.parse("21/05/2025", formatter), Prioridade.MEDIA);
         Tarefa tarefa2 = new Tarefa("T2", "tarefa 2", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
@@ -206,6 +228,7 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(expected, tarefaController.listarTarefas());
     }
     @Test
+    @Tag("Functional")
     public void testListarData1MenorPrioridadeIgual(){
         Tarefa tarefa1 = new Tarefa("T1", "tarefa 1", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         Tarefa tarefa2 = new Tarefa("T2", "tarefa 2", LocalDate.parse("21/05/2025", formatter), Prioridade.MEDIA);
@@ -218,6 +241,7 @@ public class Junit5GerenciadorTarefasTest {
     }
 
     @Test
+    @Tag("Functional")
     public void testListarDatasIguaisPrioridade1Maior(){
         Tarefa tarefa1 = new Tarefa("T1", "tarefa 1", LocalDate.parse("20/05/2024", formatter), Prioridade.ALTA);
         Tarefa tarefa2 = new Tarefa("T2", "tarefa 2", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
@@ -229,6 +253,7 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(expected, tarefaController.listarTarefas());
     }
     @Test
+    @Tag("Functional")
     public void testListarDatasIguaisPrioridade1Menor(){
         Tarefa tarefa1 = new Tarefa("T1", "tarefa 1", LocalDate.parse("20/05/2024", formatter), Prioridade.BAIXA);
         Tarefa tarefa2 = new Tarefa("T2", "tarefa 2", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
@@ -240,6 +265,7 @@ public class Junit5GerenciadorTarefasTest {
         assertEquals(expected, tarefaController.listarTarefas());
     }
     @Test
+    @Tag("Functional")
     public void testListarDatasIguaisPrioridadesIguais(){
         Tarefa tarefa1 = new Tarefa("T1", "tarefa 1", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         Tarefa tarefa2 = new Tarefa("T2", "tarefa 2", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
