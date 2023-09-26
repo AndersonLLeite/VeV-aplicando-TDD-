@@ -138,6 +138,7 @@ public class Junit5GerenciadorTarefasTest {
     // Testes Funcionais
     @Test
     @Tag("Functional")
+    @Tag("ExceptionHandling")
     public void testCriarTarefaDataFormatoInvalido(){
         assertThrows(DateTimeParseException.class, () -> {
             Tarefa novaTarefa = new Tarefa("T1", "tarefa 1", LocalDate.parse("20.04.2024", formatter), Prioridade.MEDIA);
@@ -146,6 +147,7 @@ public class Junit5GerenciadorTarefasTest {
     }
     @Test
     @Tag("Functional")
+    @Tag("ExceptionHandling")
     public void testCriarTarefaDataInvalida(){
         Tarefa novaTarefa = new Tarefa("T1", "tarefa 1", LocalDate.parse("31/02/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
@@ -153,6 +155,7 @@ public class Junit5GerenciadorTarefasTest {
     }
     @Test
     @Tag("Functional")
+    @Tag("ExceptionHandling")
     public void testCriarTarefaDataJaSePassou(){
         Tarefa novaTarefa = new Tarefa("T1", "tarefa 1", LocalDate.parse("02/03/2019", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
@@ -169,6 +172,7 @@ public class Junit5GerenciadorTarefasTest {
     }
     @Test
     @Tag("Functional")
+    @Tag("ExceptionHandling")
     public void testCriarTarefaTituloVazio(){
         Tarefa novaTarefa = new Tarefa("", "", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
         tarefaController.addTarefa(novaTarefa);
@@ -276,4 +280,35 @@ public class Junit5GerenciadorTarefasTest {
         List<Tarefa> expected =Arrays.asList(tarefa1, tarefa2);
         assertEquals(expected, tarefaController.listarTarefas());
     }
+    // Novos Testes
+    @Test
+    @Tag("NewTest")
+    @Tag("ExceptionHandling")
+    void testCriarTarefaNula(){
+        Tarefa tarefa1 = null;
+        assertThrows(NullPointerException.class, () -> tarefaController.addTarefa(tarefa1));
+    }
+    @Test
+    @Tag("NewTest")
+    @Tag("ExceptionHandling")
+    void testCriarTarefaSobrescrita(){
+        Tarefa tarefa1 = new Tarefa("T1", "tarefa 1", LocalDate.parse("20/05/2024", formatter), Prioridade.MEDIA);
+        Tarefa repetida = new Tarefa("T1", "tarefa repetida", LocalDate.parse("20/05/2024", formatter), Prioridade.BAIXA);
+        tarefaController.addTarefa(tarefa1);
+
+        assertThrows(IllegalArgumentException.class, () -> tarefaController.addTarefa(repetida));
+    }
+    @Test
+    @Tag("NewTest")
+    @Tag("ExceptionHandling")
+    void testDeletarTarefaInexistente(){
+        assertThrows(IllegalArgumentException.class, () -> tarefaController.deleteTarefa("T99"));
+    }
+    @Test
+    @Tag("NewTest")
+    @Tag("ExceptionHandling")
+    void testAtualizarTarefaInexistente(){
+        assertThrows(IllegalArgumentException.class, () -> tarefaController.deleteTarefa("T99"));
+    }
+
 }
