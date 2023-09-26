@@ -308,7 +308,6 @@ public class Junit5GerenciadorTarefasTest {
     @Tag("NewTest")
     @Tag("ExceptionHandling")
     void testAtualizarTarefaInexistente(){
-        assertThrows(IllegalArgumentException.class, () -> tarefaController.deleteTarefa("T99"));
+        assertThrows(IllegalArgumentException.class, () -> tarefaController.updateTarefa("T99", "descricao", "20/05/2024", Prioridade.BAIXA));
     }
-
 }
