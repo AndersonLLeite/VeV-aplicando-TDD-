@@ -1,4 +1,5 @@
 package test.junit5Tests;
+        import org.junit.jupiter.api.Assertions;
         import org.junit.jupiter.api.BeforeEach;
         import org.junit.jupiter.api.Test;
         import processadordeboletos.Boleto;
@@ -9,9 +10,10 @@ package test.junit5Tests;
         import java.util.Date;
         import java.util.List;
 
+        import static org.junit.Assert.assertEquals;
         import static org.junit.jupiter.api.Assertions.*;
 
-public class junit5GerenciadorTarefasTest {
+public class junit5ProcessadorDeBoletosTest {
     private List<Boleto> boletos;
     private Fatura fatura;
 
@@ -90,9 +92,18 @@ public class junit5GerenciadorTarefasTest {
     public void testAmbosValoresNegativos() {
         boletos.add(new Boleto("001", new Date(), -500.00));
         fatura = new Fatura(new Date(), -1000.00, "Cliente Teste");
-
         assertThrows(IllegalArgumentException.class, () -> {
             ProcessadorDeBoletos.processarBoletos(boletos, fatura);
         });
+    }
+
+    @Test
+    public void testProcessarBoletosResultandoTem3PagamentosDoTipoBoleto() {
+        boletos.add(new Boleto("001", new Date(), 500.00));
+        boletos.add(new Boleto("002", new Date(), 100.00));
+        boletos.add(new Boleto("003", new Date(), 600.00));
+        ProcessadorDeBoletos.processarBoletos(boletos, fatura);
+
+        Assertions.assertEquals(3, fatura.getPagamentosDoTipoBoleto());
     }
 }
